@@ -1,0 +1,65 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "appName": {
+            "type": "string",
+            "defaultValue": "Contact-Database-Application",
+            "metadata": {
+                "description": "The name of the .NET C# application"
+            }
+        },
+        "appLocation": {
+            "type": "string",
+            "defaultValue": "C:\\Users\\azureuser\\source\\repos\\Contact-Database-Application",
+            "metadata": {
+                "description": "The location of the .NET C# application"
+            }
+        },
+        "resourceGroupName": {
+            "type": "string",
+            "defaultValue": "GitHub-Copilot-Challenges",
+            "metadata": {
+                "description": "The name of the resource group"
+            }
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2021-02-01",
+            "name": "[parameters('appName')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', 'appServicePlanName')]",
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "WEBSITE_RUN_FROM_PACKAGE",
+                            "value": "[concat('https://', parameters('appName'), '.zip')]"
+                        }
+                    ]
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', 'appServicePlanName')]"
+            ]
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2021-02-01",
+            "name": "appServicePlanName",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "F1",
+                "tier": "Free",
+                "size": "F1",
+                "family": "F",
+                "capacity": 1
+            },
+            "properties": {
+                "name": "appServicePlanName"
+            }
+        }
+    ]
+}
