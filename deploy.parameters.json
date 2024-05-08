@@ -3,16 +3,13 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "appName": {
-            "value": "<your-app-name>"
-        },
-        "appLocation": {
-            "value": "<your-app-location>"
+            "value": "Contact-Database-Application-MB"
         },
         "resourceGroupName": {
-            "value": "<your-resource-group-name>"
+            "value": "GitHub-Copilot-Challenges"
         },
         "appServicePlanName": {
-            "value": "<your-app-service-plan-name>"
+            "value": "GitHub-Copilot-Challenges-Plan"
         }
     }
 }
