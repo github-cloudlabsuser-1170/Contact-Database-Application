@@ -1,0 +1,22 @@
+name: Azure Web App Deployment
+ 
+on:
+  push:
+    branches:
+      - master
+ 
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+ 
+    - name: Set up Azure CLI
+      run: |
+        az login --username ${{ secrets.AZURE_USERNAME }} --password ${{ secrets.AZURE_PASSWORD }}
+ 
+    - name: Deploy to Azure
+      run: |
+        az deployment group create --resource-group GitHub-Copilot-Challenges --template-file "./deploy.json" --parameters "./deploy.parameters.json"
